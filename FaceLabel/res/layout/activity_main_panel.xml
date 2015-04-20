@@ -1,0 +1,119 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_panel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.facelabel.MainPanelActivity" >
+
+    <fragment  
+        android:id="@+id/fragment_contact"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content"  
+        android:layout_weight="1"
+        class="com.facelabel.ContactFragment" /> 
+        
+    <fragment  
+        android:id="@+id/fragment_design"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content"  
+        android:layout_weight="1"
+        class="com.facelabel.DesignFragment" />
+  
+    <fragment  
+        android:id="@+id/fragment_setting"  
+        android:layout_width="fill_parent"  
+        android:layout_height="wrap_content"  
+        android:layout_weight="1"
+        class="com.facelabel.SettingFragment" />
+    
+    <LinearLayout
+		android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+		android:background="#CC000000"
+	    android:gravity="center_horizontal"
+	    android:orientation="horizontal" >
+	 
+	    <LinearLayout
+	    	android:tag="viewGroups"  
+	        android:id="@+id/activity_main_groups_menu"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_horizontal"
+	        android:orientation="vertical"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="5dp"
+	        android:paddingLeft="7dp"
+	        android:paddingRight="7dp"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="1dp"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginRight="15dp" >
+	
+	        <ImageView
+	            android:id="@+id/activity_main_groups_icon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/contact"
+	            android:tag="viewGroups" />
+
+	    </LinearLayout>
+	
+	    <LinearLayout
+	    	android:tag="addGroup"
+	        android:id="@+id/activity_main_add_menu"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_horizontal"
+	        android:orientation="vertical"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="5dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="1dp"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginRight="15dp" >
+	
+	        <ImageView
+	            android:id="@+id/activity_main_add_icon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/face_detection"
+	            android:tag="addGroup" />
+
+       	</LinearLayout>
+
+	    <LinearLayout
+	    	android:tag="settings"
+	        android:id="@+id/activity_main_settings_menu"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_horizontal"
+	        android:orientation="vertical"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="5dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="1dp"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginRight="15dp" >
+	
+	        <ImageView
+	            android:id="@+id/activity_main_settings_icon"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/system_setting"
+	            android:tag="settings" />
+
+       	</LinearLayout>
+    </LinearLayout>  
+</LinearLayout>

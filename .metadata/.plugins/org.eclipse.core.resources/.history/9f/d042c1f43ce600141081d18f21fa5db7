@@ -1,0 +1,18 @@
+title_activity_face_recognizertitle_activity_face_recognizertitle_activity_face_recognizertitle_activity_face_recognizer<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FaceLabel</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_group">GroupActivity</string>
+    <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_member">MemberActivity</string>
+    <string name="title_activity_display_image">DisplayImage</string>
+    <string name="title_activity_image_processing">ImageProcessingActivity</string>
+    <string name="title_activity_main_panel">MainPanelActivity</string>
+    <string name="title_activity_image_selection">ImageSelectionActivity</string>
+    <string name="title_activity_add_missing_member">AddMissingMemberActivity</string>
+    <string name="title_activity_detailed_setting">DetailedSettingActivity</string>
+    <string name="title_activity_face_recognizer">FaceRecognizerActivity</string>
+
+</resources>

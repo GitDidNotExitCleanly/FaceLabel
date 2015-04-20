@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DEDEDE"
+    tools:context="com.facelabel.SettingFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="FUNCTIONS" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/group_list_background" >
+
+                <RelativeLayout
+                    android:id="@+id/fragment_setting_functions_clear_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingLeft="20dp"
+                	android:paddingRight="20dp"
+                	android:background="@drawable/list_item_effect" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Delete All Content"
+                        android:textColor="#ff0000"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/open_arrow" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="OTHERS" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/group_list_background"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/fragment_setting_others_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingLeft="20dp"
+                	android:paddingRight="20dp"
+                	android:background="@drawable/list_item_effect" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="About"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/open_arrow" />
+
+                </RelativeLayout>
+                
+                <View
+				    android:layout_width="fill_parent"
+				    android:layout_height="1dp"
+				    android:background="#C6C6C6"/>
+
+                <RelativeLayout
+                    android:id="@+id/fragment_setting_others_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:paddingLeft="20dp"
+                	android:paddingRight="20dp"
+                	android:background="@drawable/list_item_effect" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Author"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/open_arrow" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

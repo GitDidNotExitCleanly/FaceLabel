@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.facelabel.DesignFragment" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/fragment_design_background" />
+
+    <Button
+        android:id="@+id/fragment_design_start"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/start_button_effect"
+        android:textColor="#fff"
+        android:text="Create your group" />
+
+    <RelativeLayout
+        android:id="@+id/fragment_design_popup_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </RelativeLayout>
+
+</RelativeLayout>

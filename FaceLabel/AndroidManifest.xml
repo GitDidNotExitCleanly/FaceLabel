@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.facelabel"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.front.autofocus" android:required="false"/>
+    
+    <supports-screens android:normalScreens="true" android:largeScreens="true" android:smallScreens="false" android:xlargeScreens="false"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".LoadingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".contacts.group.GroupActivity"
+            android:label="@string/title_activity_group"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".contacts.member.MemberActivity"
+            android:label="@string/title_activity_member"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".processing.ImageProcessingActivity"
+            android:label="@string/title_activity_image_processing"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".MainPanelActivity"
+            android:label="@string/title_activity_main_panel"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".processing.ImageSelectionActivity"
+            android:label="@string/title_activity_image_selection"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".processing.crop.AddMissingMemberActivity"
+            android:label="@string/title_activity_add_missing_member"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.facelabel.settings.DetailedSettingActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_detailed_setting" >
+        </activity>
+        <activity
+            android:name="com.facelabel.processing.faceRecognizer.FaceRecognizerActivity"
+            android:label="@string/title_activity_face_recognizer"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+    </application>
+
+</manifest>

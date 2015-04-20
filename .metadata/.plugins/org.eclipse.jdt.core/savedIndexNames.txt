@@ -1,0 +1,8 @@
+INDEX VERSION 1.127+C:\Users\Barret\Desktop\New folder (2)\.metadata\.plugins\org.eclipse.jdt.core
+2353209433.index
+3284433746.index
+1203882303.index
+440964216.index
+3551083867.index
+708470982.index
+256809427.index
