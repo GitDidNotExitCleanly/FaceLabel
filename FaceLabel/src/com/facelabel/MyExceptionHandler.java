@@ -8,7 +8,8 @@ import android.os.Process;
 public class MyExceptionHandler implements
         java.lang.Thread.UncaughtExceptionHandler {
 
-    public void uncaughtException(Thread thread, Throwable exception) {
+    @Override
+	public void uncaughtException(Thread thread, Throwable exception) {
 
         StringWriter stackTrace = new StringWriter();
         exception.printStackTrace(new PrintWriter(stackTrace));

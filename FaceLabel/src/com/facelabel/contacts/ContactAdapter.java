@@ -6,9 +6,6 @@ import com.facelabel.data_model.GroupInfo;
 import com.facelabel.database.ContactsData;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -13,7 +13,6 @@ import org.bytedeco.javacpp.opencv_imgproc;
 
 import com.facelabel.database.ContactsData;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
 
@@ -113,7 +112,7 @@ public class Recognizer {
 			
 			fr.predict(mGray,ids,prob);
 			
-			System.out.println("probability: "+prob[0]);
+			//System.out.println("probability: "+prob[0]);
 			
 			return ids[0];
 		}

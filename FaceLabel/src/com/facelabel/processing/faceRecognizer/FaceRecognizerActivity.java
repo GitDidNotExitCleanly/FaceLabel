@@ -1,12 +1,9 @@
 package com.facelabel.processing.faceRecognizer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.LoaderCallbackInterface;
@@ -18,7 +15,6 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.objdetect.CascadeClassifier;
@@ -26,15 +22,13 @@ import org.opencv.objdetect.CascadeClassifier;
 import com.facelabel.MainPanelActivity;
 import com.facelabel.MyExceptionHandler;
 import com.facelabel.R;
-import com.facelabel.data_model.GroupInfo;
-import com.facelabel.data_model.MemberInfo;
+import com.facelabel.contacts.member.MemberActivity;
 import com.facelabel.database.ContactsData;
-import com.facelabel.database.DatabaseHelper;
-import com.facelabel.processing.ImageProcessingActivity;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -42,7 +36,6 @@ import android.graphics.Point;
 import android.graphics.Bitmap.Config;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -225,22 +218,26 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
             mOpenCvCameraView.disableView();
     }
 
-    public void onDestroy() {
+    @Override
+	public void onDestroy() {
         super.onDestroy();
         mOpenCvCameraView.disableView();
     }
 
-    public void onCameraViewStarted(int width, int height) {
+    @Override
+	public void onCameraViewStarted(int width, int height) {
         mGray = new Mat();
         mRgba = new Mat();
     }
 
-    public void onCameraViewStopped() {
+    @Override
+	public void onCameraViewStopped() {
         mGray.release();
         mRgba.release();
     }
 
-    public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
+    @Override
+	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
 
         mRgba = inputFrame.rgba();
         mGray = inputFrame.gray();
@@ -304,6 +301,39 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 		protected void onPostExecute(Integer memberID) {
 			
 			Log.e("HELLO_WORLD", String.valueOf(memberID));
+			if (memberID != -1) {
+				for (int i=0;i<ContactsData.getContacts().size();i++) {
+					for (int j=0;i<ContactsData.getContacts().get(i).getGroupMembers().size();j++) {
+						if (ContactsData.getContacts().get(i).getGroupMembers().get(j).getId() == memberID) {
+							
+							Intent intent = new Intent(FaceRecognizerActivity.this, MemberActivity.class);
+							intent.putExtra("groupPosition", i);
+							intent.putExtra("memberPosition", j);
+							startActivity(intent);
+							finish();
+							
+						}
+					}
+				}
+			}
+			else {
+				new AlertDialog.Builder(FaceRecognizerActivity.this)
+							.setTitle("Exception")
+							.setMessage("No Match Found !")
+							.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+						        @Override
+								public void onClick(DialogInterface dialog, int which) { 
+						        	
+						        	Intent intent = new Intent(FaceRecognizerActivity.this,MainPanelActivity.class);
+									intent.putExtra("fragment", 1);
+									startActivity(intent);
+									finish();
+									
+						        }
+						     })
+						    .setIcon(android.R.drawable.ic_dialog_alert)
+						    .show();
+			}
 			
 			progressDialog.dismiss();
 	    }

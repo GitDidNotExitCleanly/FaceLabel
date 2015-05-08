@@ -14,7 +14,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 
 public class LoadingActivity extends Activity {
 

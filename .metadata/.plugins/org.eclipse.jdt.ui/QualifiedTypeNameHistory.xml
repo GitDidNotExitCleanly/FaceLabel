@@ -1,23 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.facelabel.processing.faceRecognizer.FaceRecognizerActivity"/>
-<fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_contrib.FaceRecognizer"/>
-<fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_contrib"/>
-<fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="android.content.Context"/>
-<fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
-<fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
-<fullyQualifiedTypeName name="java.io.FilenameFilter"/>
-<fullyQualifiedTypeName name="com.facelabel.database.ContactsData"/>
-<fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_core.MatVector"/>
-<fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_core.Mat"/>
-<fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_highgui"/>
-<fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_imgproc"/>
-<fullyQualifiedTypeName name="android.graphics.Bitmap"/>
-<fullyQualifiedTypeName name="android.graphics.Bitmap.CompressFormat"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="org.bytedeco.javacpp.opencv_core.FileStorage"/>
-<fullyQualifiedTypeName name="com.facelabel.processing.faceRecognizer.Recognizer"/>
-</qualifiedTypeNameHistroy>
+<qualifiedTypeNameHistroy/>
