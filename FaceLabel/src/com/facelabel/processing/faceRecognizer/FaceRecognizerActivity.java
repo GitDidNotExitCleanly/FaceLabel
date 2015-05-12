@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.LoaderCallbackInterface;
@@ -24,6 +25,7 @@ import com.facelabel.MyExceptionHandler;
 import com.facelabel.R;
 import com.facelabel.contacts.member.MemberActivity;
 import com.facelabel.database.ContactsData;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -41,6 +43,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,8 +57,8 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 	private RelativeLayout rectangle;
 	private ImageView result;
 	
-	private TextView btnCancel;
-	private TextView btnDetect;
+	private Button btnCancel;
+	private ImageButton btnDetect;
 	
 	private int windowWidth;
 	private int windowHeight;
@@ -166,8 +170,8 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
     	this.rectangle.setLayoutParams(params);
     	this.result = (ImageView)findViewById(R.id.activity_face_recognizer_result);
     	
-    	this.btnCancel = (TextView)findViewById(R.id.activity_face_recognizer_cancel);
-    	this.btnDetect = (TextView)findViewById(R.id.activity_face_recognizer_detect);
+    	this.btnCancel = (Button)findViewById(R.id.activity_face_recognizer_cancel);
+    	this.btnDetect = (ImageButton)findViewById(R.id.activity_face_recognizer_detect);
     	
     	this.btnCancel.setOnClickListener(new OnClickListener() {
 

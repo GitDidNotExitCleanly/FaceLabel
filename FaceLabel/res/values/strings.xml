@@ -14,5 +14,8 @@
     <string name="title_activity_add_missing_member">AddMissingMemberActivity</string>
     <string name="title_activity_detailed_setting">DetailedSettingActivity</string>
     <string name="title_activity_face_recognizer">FaceRecognizerActivity</string>
+    <string name="title_activity_training">TrainingActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

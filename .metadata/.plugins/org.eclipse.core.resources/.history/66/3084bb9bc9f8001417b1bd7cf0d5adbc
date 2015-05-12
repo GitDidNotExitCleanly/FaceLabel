@@ -1,0 +1,172 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    tools:context="com.facelabel.contacts.member.MemberDisplayFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/activity_member_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/activity_member_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:textSize="30sp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" 
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PHONE"
+            android:textStyle="bold"
+            android:textColor="#2E3192"
+            android:textSize="20sp" />
+        
+       	<View
+			android:layout_width="fill_parent"
+			android:layout_height="1dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="10dp"
+			android:background="#2E3192"/>
+
+       	<LinearLayout
+       	    android:layout_width="match_parent"
+       	    android:layout_height="wrap_content"
+       	    android:orientation="horizontal" >
+
+       		<LinearLayout
+       		    android:layout_width="match_parent"
+       		    android:layout_height="wrap_content"
+       		    android:layout_weight="1"
+       		    android:orientation="vertical" >
+
+       		    <TextView
+       		        android:id="@+id/activity_member_phone"
+       		        android:layout_width="wrap_content"
+       		        android:layout_height="wrap_content"
+       		        android:textSize="20sp" />
+
+       		    <TextView
+       		        android:layout_width="wrap_content"
+       		        android:layout_height="wrap_content"
+       		        android:layout_marginBottom="10dp"
+       		        android:layout_marginTop="10dp"
+       		        android:text="Mobile"
+       		        android:textColor="#C6C6C6"
+       		        android:textSize="20sp" />
+       		</LinearLayout>
+
+       		<ImageButton
+       		    android:id="@+id/fragment_member_display_dial"
+       		    android:layout_width="120dp"
+       		    android:layout_height="60dp"
+       		    android:scaleType="fitXY"
+       		    android:layout_weight="1"
+       		    android:src="@drawable/dial" />
+
+       	</LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" 
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EMAIL"
+            android:textStyle="bold"
+            android:textColor="#2E3192"
+            android:textSize="20sp" />
+        
+        <View
+			android:layout_width="fill_parent"
+			android:layout_height="1dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="10dp"
+			android:background="#2E3192"/>        
+
+       	<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+				android:id="@+id/activity_member_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#C6C6C6"
+                android:text="Work"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/group_list_background" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:text="State:" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:text="Trained" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="Train" />
+
+    </LinearLayout>
+
+</LinearLayout>

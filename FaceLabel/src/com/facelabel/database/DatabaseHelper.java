@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String MEMBER_PHOTO = "photo";
 	public static final String MEMBER_PHONE = "phone";
 	public static final String MEMBER_EMAIL = "email";
+	public static final String MEMBER_TRAINED = "state";
 	
 	public synchronized static DatabaseHelper getInstance(Context ctx) {
 		if (singleton == null) {
@@ -44,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		try {
 			db.beginTransaction();
 			db.execSQL("CREATE TABLE faceLabelGroups (id INTEGER PRIMARY KEY AUTOINCREMENT,"+GROUP_NAME+" TEXT,"+GROUP_PHOTO+" TEXT);");
-			db.execSQL("CREATE TABLE faceLabelMembers (id INTEGER PRIMARY KEY,"+GROUP_ID+" LONG,"+MEMBER_NAME+" TEXT,"+MEMBER_PHOTO+" TEXT,"+MEMBER_PHONE+" TEXT,"+MEMBER_EMAIL+" TEXT);");			
+			db.execSQL("CREATE TABLE faceLabelMembers (id INTEGER PRIMARY KEY,"+GROUP_ID+" LONG,"+MEMBER_NAME+" TEXT,"+MEMBER_PHOTO+" TEXT,"+MEMBER_PHONE+" TEXT,"+MEMBER_EMAIL+" TEXT,"+MEMBER_TRAINED+" TEXT);");			
 			db.setTransactionSuccessful();
 		}
 		finally {
@@ -96,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cv.put(MEMBER_PHOTO, member[0].getPhoto());
 			cv.put(MEMBER_PHONE, member[0].getPhone());
 			cv.put(MEMBER_EMAIL, member[0].getEmail());
+			cv.put(MEMBER_TRAINED, "false");
 			getWritableDatabase().insert(TABLE_MEMBERS, null, cv);
 			return null;
 		}
@@ -124,6 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				cv.put(MEMBER_PHOTO, info.getPhoto());
 				cv.put(MEMBER_PHONE, info.getPhone());
 				cv.put(MEMBER_EMAIL, info.getEmail());
+				cv.put(MEMBER_TRAINED, "false");
 				getWritableDatabase().insert(TABLE_MEMBERS, null, cv);
 			}
 			

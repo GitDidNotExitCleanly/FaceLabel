@@ -104,7 +104,7 @@ public class AddMissingMemberActivity extends Activity {
 			File imageFile = getOutputMediaFile(currentGroupId,currentMemberId);
 			storeImage(croppedImage,imageFile);
 			
-			MemberInfo newMember = new MemberInfo(currentGroupId,currentMemberId,"New Member",imageFile.getAbsolutePath(),"","");
+			MemberInfo newMember = new MemberInfo(currentGroupId,currentMemberId,"New Member",imageFile.getAbsolutePath(),"","","false");
 			DatabaseHelper.getInstance(AddMissingMemberActivity.this).addMember(newMember);
 			ContactsData.getContacts().get(groupPosition).getGroupMembers().add(newMember);
 			

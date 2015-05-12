@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <org.opencv.android.JavaCameraView
+        android:id="@+id/fd_activity_surface_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true" />
+
+    <RelativeLayout
+        android:id="@+id/activity_face_recognizer_rectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/camera_front" >
+
+        <ImageView
+            android:id="@+id/activity_face_recognizer_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+    
+   	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="#9639ADC2" >
+
+        <TextView
+            android:id="@+id/activity_face_recognizer_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/activity_face_recognizer_detect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Recognize"
+            android:textSize="20sp" />
+    </LinearLayout>
+    
+   		<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerVertical="true"
+	    android:gravity="center"
+	    android:orientation="vertical" >
+
+		<ImageButton
+		    android:id="@+id/training_take"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:src="@drawable/training_camera" />
+
+		<Button
+		    android:id="@+id/training_cancel"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:textSize="10sp"
+		    android:text="Cancel" />
+
+	</LinearLayout>
+
+</RelativeLayout>

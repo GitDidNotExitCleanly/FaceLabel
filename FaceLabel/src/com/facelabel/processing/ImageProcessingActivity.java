@@ -201,7 +201,7 @@ public class ImageProcessingActivity extends Activity {
 				String photoPath = imageFiles[i+1].getAbsolutePath();
 				String phone = "";
 				String email = "";
-				groupMembers.add(new MemberInfo(lastGroupId+1,lastMemberId+i+1,name,photoPath,phone,email));
+				groupMembers.add(new MemberInfo(lastGroupId+1,lastMemberId+i+1,name,photoPath,phone,email,"false"));
 			}
 			
 			String groupName = "Undefined";

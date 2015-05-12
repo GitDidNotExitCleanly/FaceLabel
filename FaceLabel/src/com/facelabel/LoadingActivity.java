@@ -38,20 +38,22 @@ public class LoadingActivity extends Activity {
 				String groupPhoto = cursor.getString(groupPhotoIndex);
 				
 				ArrayList<MemberInfo> members = new ArrayList<MemberInfo>();
-				Cursor memberCursor = db.query(DatabaseHelper.TABLE_MEMBERS, new String[]{"id",DatabaseHelper.MEMBER_NAME,DatabaseHelper.MEMBER_PHOTO,DatabaseHelper.MEMBER_PHONE,DatabaseHelper.MEMBER_EMAIL}, DatabaseHelper.GROUP_ID+"=?", new String[]{String.valueOf(groupId)}, null, null, null);
+				Cursor memberCursor = db.query(DatabaseHelper.TABLE_MEMBERS, new String[]{"id",DatabaseHelper.MEMBER_NAME,DatabaseHelper.MEMBER_PHOTO,DatabaseHelper.MEMBER_PHONE,DatabaseHelper.MEMBER_EMAIL,DatabaseHelper.MEMBER_TRAINED}, DatabaseHelper.GROUP_ID+"=?", new String[]{String.valueOf(groupId)}, null, null, null);
 				while (memberCursor.moveToNext()) {
 					int memberIdIndex = memberCursor.getColumnIndex("id");
 					int memberNameIndex = memberCursor.getColumnIndex(DatabaseHelper.MEMBER_NAME);
 					int memberPhotoIndex = memberCursor.getColumnIndex(DatabaseHelper.MEMBER_PHOTO);
 					int memberPhoneIndex = memberCursor.getColumnIndex(DatabaseHelper.MEMBER_PHONE);
 					int memberEmailIndex = memberCursor.getColumnIndex(DatabaseHelper.MEMBER_EMAIL);
+					int trainingStateIndex = memberCursor.getColumnIndex(DatabaseHelper.MEMBER_TRAINED);
 					long id = memberCursor.getLong(memberIdIndex);
 					String name = memberCursor.getString(memberNameIndex);
 					String photo = memberCursor.getString(memberPhotoIndex);
 					String phone = memberCursor.getString(memberPhoneIndex);
 					String email = memberCursor.getString(memberEmailIndex);
+					String trained = memberCursor.getString(trainingStateIndex);
 					
-					MemberInfo member = new MemberInfo(groupId,id,name,photo,phone,email);
+					MemberInfo member = new MemberInfo(groupId,id,name,photo,phone,email,trained);
 					members.add(member);
 				}
 				memberCursor.close();

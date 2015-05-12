@@ -10,14 +10,26 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.front.autofocus" android:required="false"/>
-    
-    <supports-screens android:normalScreens="true" android:largeScreens="true" android:smallScreens="false" android:xlargeScreens="false"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front.autofocus"
+        android:required="false" />
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="false"
+        android:xlargeScreens="false" />
 
     <application
         android:allowBackup="true"
@@ -69,13 +81,19 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="com.facelabel.settings.DetailedSettingActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_detailed_setting" >
+            android:name=".settings.DetailedSettingActivity"
+            android:label="@string/title_activity_detailed_setting"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.facelabel.processing.faceRecognizer.FaceRecognizerActivity"
+            android:name=".processing.faceRecognizer.FaceRecognizerActivity"
             android:label="@string/title_activity_face_recognizer"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.facelabel.processing.faceRecognizer.TrainingActivity"
+            android:label="@string/title_activity_training"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
