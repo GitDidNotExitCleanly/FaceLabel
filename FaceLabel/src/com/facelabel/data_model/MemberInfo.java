@@ -6,13 +6,15 @@ public class MemberInfo {
 	private long id;
 	private String name;
 	private String photo;
+	private String phone;
 	private String email;
 	
-	public MemberInfo(long groupId, long id, String name, String photo, String email) {
+	public MemberInfo(long groupId, long id, String name, String photo, String phone, String email) {
 		this.groupId = groupId;
 		this.id = id;
 		this.name = name;
 		this.photo = photo;
+		this.phone = phone;
 		this.email = email;
 	}
 	
@@ -31,6 +33,10 @@ public class MemberInfo {
 	public String getPhoto() {
 		return photo;
 	}
+	
+	public String getPhone() {
+		return phone;
+	}
 
 	public String getEmail() {
 		return email;
@@ -38,6 +44,7 @@ public class MemberInfo {
 	
 	public void updateInfo(String... newInfo) {
 		this.name = newInfo[0];
-		this.email = newInfo[1];
+		this.phone = newInfo[1];
+		this.email = newInfo[2];
 	}
 }

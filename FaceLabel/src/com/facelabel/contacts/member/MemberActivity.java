@@ -100,9 +100,11 @@ public class MemberActivity extends Activity {
 				if (isEditable) {
 					// edit OK
 					EditText nameEdit = (EditText)findViewById(R.id.activity_member_name_edit);
+					EditText phoneEdit = (EditText)findViewById(R.id.activity_member_phone_edit);
 					EditText emailEdit = (EditText)findViewById(R.id.activity_member_email_edit);
 					
 					TextView nameDisplay = (TextView)findViewById(R.id.activity_member_name);
+					TextView phoneDisplay = (TextView)findViewById(R.id.activity_member_phone);
 					TextView emailDisplay = (TextView)findViewById(R.id.activity_member_email);
 					
 					boolean isModified = false;
@@ -110,16 +112,21 @@ public class MemberActivity extends Activity {
 					if (!nameEdit.getText().toString().equals(info.getName())) {
 						isModified = true;
 					}
+					if (!phoneEdit.getText().toString().equals(info.getPhone())) {
+						isModified = true;
+					}
 					if (!emailEdit.getText().toString().equals(info.getEmail())) {
 						isModified = true;
 					}
 					if (isModified) {
 						String newName = nameEdit.getText().toString();
+						String newPhone = phoneEdit.getText().toString();
 						String newEmail = emailEdit.getText().toString();
-						DatabaseHelper.getInstance(MemberActivity.this).changePersonalInfo(String.valueOf(ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).getId()),newName,newEmail);	
+						DatabaseHelper.getInstance(MemberActivity.this).changePersonalInfo(String.valueOf(ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).getId()),newName,newPhone,newEmail);	
 						nameDisplay.setText(newName);
+						phoneDisplay.setText(newPhone);
 						emailDisplay.setText(newEmail);
-						ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).updateInfo(newName,newEmail);
+						ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).updateInfo(newName,newPhone,newEmail);
 					}
 					
 					isEditable = false;

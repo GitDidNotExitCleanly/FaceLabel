@@ -112,7 +112,7 @@ public class GroupActivity extends Activity {
 					dropdownMenu = new GroupActivity_Dropdown(GroupActivity.this,itemsOnClick);
 				}
 				
-				dropdownMenu.showAsDropDown(setting, -80, 20);
+				dropdownMenu.showAsDropDown(setting, -240, 20);
 			}
     		
     	});

@@ -31,6 +31,7 @@ public class MemberEditFragment extends Fragment {
 	
 	private ImageView photo;
 	private EditText name;
+	private EditText phone;
 	private EditText email;
 	
 	private Button delete;
@@ -62,6 +63,8 @@ public class MemberEditFragment extends Fragment {
     	this.photo.setImageBitmap(BitmapLoader.decodeBitmapFromFile(info.getPhoto(), 100, 100));
 		this.name = (EditText)getActivity().findViewById(R.id.activity_member_name_edit);
     	this.name.setText(info.getName());
+    	this.phone = (EditText)getActivity().findViewById(R.id.activity_member_phone_edit);
+    	this.phone.setText(info.getPhone());
     	this.email = (EditText)getActivity().findViewById(R.id.activity_member_email_edit);
     	this.email.setText(info.getEmail());
 	}

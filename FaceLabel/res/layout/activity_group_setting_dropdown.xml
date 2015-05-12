@@ -11,15 +11,15 @@
         android:id="@+id/activity_group_setting_addMissingMember"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
         android:gravity="center" >
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/activity_group_add_member" />
 
         <TextView
@@ -27,22 +27,28 @@
             android:layout_height="wrap_content"
             android:text="Add Member"
             android:textColor="#fff"
-            android:textSize="10sp" />
+            android:gravity="center"
+            android:textSize="20sp" />
     </LinearLayout>
+    
+    <View
+		android:layout_width="200dp"
+		android:layout_height="1dp"
+		android:background="#C6C6C6"/>
 
     <LinearLayout
         android:id="@+id/activity_group_setting_changeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:gravity="center" >
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/activity_group_change_name" />
 
         <TextView
@@ -50,7 +56,8 @@
             android:layout_height="wrap_content"
             android:text="Change Name"
             android:textColor="#fff"
-            android:textSize="10sp" />
+            android:gravity="center"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

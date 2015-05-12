@@ -5,11 +5,15 @@ import com.facelabel.R;
 import com.facelabel.data_model.MemberInfo;
 import com.facelabel.database.ContactsData;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +24,10 @@ public class MemberDisplayFragment extends Fragment {
 	
 	private ImageView photo;
 	private TextView name;
+	private TextView phone;
 	private TextView email;
+	
+	private ImageButton dial;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +52,24 @@ public class MemberDisplayFragment extends Fragment {
     	this.photo.setImageBitmap(BitmapLoader.decodeBitmapFromFile(info.getPhoto(), 100, 100));
     	this.name = (TextView)getActivity().findViewById(R.id.activity_member_name);
     	this.name.setText(info.getName());
+    	this.phone = (TextView)getActivity().findViewById(R.id.activity_member_phone);
+    	this.phone.setText(info.getPhone());
     	this.email = (TextView)getActivity().findViewById(R.id.activity_member_email);
     	this.email.setText(info.getEmail());
+    	
+		this.dial = (ImageButton)getActivity().findViewById(R.id.fragment_member_display_dial);
+		
+		this.dial.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// dial
+				if (!phone.getText().equals("")) {
+					Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ phone.getText().toString().trim()));
+					startActivity(callIntent);
+				}
+			}
+			
+		});
     }
 }

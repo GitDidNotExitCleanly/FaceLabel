@@ -25,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String TABLE_MEMBERS = "faceLabelMembers";
 	public static final String MEMBER_NAME = "member";
 	public static final String MEMBER_PHOTO = "photo";
+	public static final String MEMBER_PHONE = "phone";
 	public static final String MEMBER_EMAIL = "email";
 	
 	public synchronized static DatabaseHelper getInstance(Context ctx) {
@@ -43,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		try {
 			db.beginTransaction();
 			db.execSQL("CREATE TABLE faceLabelGroups (id INTEGER PRIMARY KEY AUTOINCREMENT,"+GROUP_NAME+" TEXT,"+GROUP_PHOTO+" TEXT);");
-			db.execSQL("CREATE TABLE faceLabelMembers (id INTEGER PRIMARY KEY,"+GROUP_ID+" LONG,"+MEMBER_NAME+" TEXT,"+MEMBER_PHOTO+" TEXT,"+MEMBER_EMAIL+" TEXT);");			
+			db.execSQL("CREATE TABLE faceLabelMembers (id INTEGER PRIMARY KEY,"+GROUP_ID+" LONG,"+MEMBER_NAME+" TEXT,"+MEMBER_PHOTO+" TEXT,"+MEMBER_PHONE+" TEXT,"+MEMBER_EMAIL+" TEXT);");			
 			db.setTransactionSuccessful();
 		}
 		finally {
@@ -93,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cv.put(GROUP_ID, member[0].getGroupId());
 			cv.put(MEMBER_NAME, member[0].getName());
 			cv.put(MEMBER_PHOTO, member[0].getPhoto());
+			cv.put(MEMBER_PHONE, member[0].getPhone());
 			cv.put(MEMBER_EMAIL, member[0].getEmail());
 			getWritableDatabase().insert(TABLE_MEMBERS, null, cv);
 			return null;
@@ -120,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				cv.put(GROUP_ID, groupId);
 				cv.put(MEMBER_NAME, info.getName());
 				cv.put(MEMBER_PHOTO, info.getPhoto());
+				cv.put(MEMBER_PHONE, info.getPhone());
 				cv.put(MEMBER_EMAIL, info.getEmail());
 				getWritableDatabase().insert(TABLE_MEMBERS, null, cv);
 			}
@@ -145,8 +148,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 	}
 	
-	public void changePersonalInfo(String memberId, String name, String email) {
-		new ChangePersonalInfo().execute(memberId,name,email);
+	public void changePersonalInfo(String memberId, String name, String phone, String email) {
+		new ChangePersonalInfo().execute(memberId,name,phone,email);
 	}
 	
 	private class ChangePersonalInfo extends AsyncTask<String,Void,Void> {
@@ -155,7 +158,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		protected Void doInBackground(String... params) {
 			ContentValues cv = new ContentValues();
 			cv.put(MEMBER_NAME, params[1]);
-			cv.put(MEMBER_EMAIL, params[2]);
+			cv.put(MEMBER_PHONE, params[2]);
+			cv.put(MEMBER_EMAIL, params[3]);
 			getWritableDatabase().update(TABLE_MEMBERS, cv, "id=?", new String[]{ params[0] });
 			return null;
 		}
