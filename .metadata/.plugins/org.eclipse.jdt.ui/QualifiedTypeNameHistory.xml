@@ -9,4 +9,6 @@
 <fullyQualifiedTypeName name="com.facelabel.database.DatabaseHelper"/>
 <fullyQualifiedTypeName name="com.facelabel.database.ContactsData"/>
 <fullyQualifiedTypeName name="android.media.ThumbnailUtils"/>
+<fullyQualifiedTypeName name="org.opencv.imgproc.Imgproc"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
 </qualifiedTypeNameHistroy>

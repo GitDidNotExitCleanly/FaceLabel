@@ -103,7 +103,7 @@ public class Recognizer {
 			else {
 				
 				int id = -1;
-				double prob_best = 0;
+				double prob_best = -1;
 				
 				String[] children = xmlDir.list();
 		        for (int i = 0; i < children.length; i++) {

@@ -175,6 +175,8 @@ int layout fragment_member_edit 0x7f030018
 int layout fragment_setting 0x7f030019
 int layout fragment_setting_action_bar 0x7f03001a
 int raw haarcascade_frontalface_alt 0x7f050000
+int raw haarcascade_mcs_eyepair_big 0x7f050001
+int raw haarcascade_mcs_mouth 0x7f050002
 int string action_settings 0x7f08000f
 int string app_name 0x7f080000
 int string hello_world 0x7f08000e

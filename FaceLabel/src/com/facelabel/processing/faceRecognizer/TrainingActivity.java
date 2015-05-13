@@ -18,6 +18,7 @@ import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 import com.facelabel.MyExceptionHandler;
@@ -36,6 +37,7 @@ import android.graphics.Bitmap.Config;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -46,8 +48,6 @@ import android.widget.Toast;
 
 public class TrainingActivity extends Activity implements CvCameraViewListener2 {
 
-
-	
 	private ProgressDialog progressDialog;
 	
 	private ImageButton takePhoto;
@@ -71,8 +71,10 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
 
     private Mat                    mRgba;
     private Mat                    mGray;   
-    private File                   mCascadeFile;
     private CascadeClassifier      mJavaDetector;
+    
+    private CascadeClassifier 	   eyesDetector;
+    private CascadeClassifier 	   mouthDetector;
 
     private int                    mDetectorType       = JAVA_DETECTOR;
 
@@ -92,7 +94,7 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
                         // load cascade file from application resources
                         InputStream is = getResources().openRawResource(R.raw.haarcascade_frontalface_alt);
                         File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-                        mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_alt.xml");
+                        File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_alt.xml");
                         FileOutputStream os = new FileOutputStream(mCascadeFile);
 
                         byte[] buffer = new byte[4096];
@@ -106,14 +108,57 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
                         mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
                         if (mJavaDetector.empty()) {
                             mJavaDetector = null;
-                        } else
+                        }
 
                         cascadeDir.delete();
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    
+                    try {
+                        // load cascade file from application resources
+                        InputStream is = getResources().openRawResource(R.raw.haarcascade_mcs_eyepair_big);
+                        File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
+                        File mCascadeFile = new File(cascadeDir, "haarcascade_mcs_eyepair_big.xml");
+                        FileOutputStream os = new FileOutputStream(mCascadeFile);
 
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        while ((bytesRead = is.read(buffer)) != -1) {
+                            os.write(buffer, 0, bytesRead);
+                        }
+                        is.close();
+                        os.close();
+
+                        eyesDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
+                        if (eyesDetector.empty()) {
+                        	eyesDetector = null;
+                        }
+                        
+                        // load cascade file from application resources
+                        is = getResources().openRawResource(R.raw.haarcascade_mcs_mouth);
+                        mCascadeFile = new File(cascadeDir, "haarcascade_mcs_mouth.xml");
+                        os = new FileOutputStream(mCascadeFile);
+
+                        buffer = new byte[4096];
+                        while ((bytesRead = is.read(buffer)) != -1) {
+                            os.write(buffer, 0, bytesRead);
+                        }
+                        is.close();
+                        os.close();
+
+                        mouthDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
+                        if (mouthDetector.empty()) {
+                        	mouthDetector = null;
+                        }
+
+                        cascadeDir.delete();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                   
                     mOpenCvCameraView.enableView();
                 } break;
                 default:
@@ -298,8 +343,84 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
 		
 		@Override
 		protected Bitmap doInBackground(Void... params) {
+			
 			Bitmap bmp = Bitmap.createBitmap(lastValidRect.cols(),lastValidRect.rows(),Config.RGB_565);
 			Utils.matToBitmap(lastValidRect, bmp);
+			
+			// align face
+			Mat gray = new Mat();
+			Imgproc.cvtColor(lastValidRect, gray, Imgproc.COLOR_BGR2GRAY);
+			
+			// eyespair
+			MatOfRect eyepairs = new MatOfRect();
+			eyesDetector.detectMultiScale(gray, eyepairs, 1.1, 5, 2, new Size(), gray.size());
+			Rect[] eyesArray = eyepairs.toArray();
+	        int maxSize = 0;
+	        int index = -1;
+	        for (int i = 0; i < eyesArray.length; i++) {
+	        	if (index == -1) {
+	        		maxSize = eyesArray[i].width*eyesArray[i].height;
+	        		index = i;
+	        	}
+	        	else {
+	        		int size = eyesArray[i].width*eyesArray[i].height;
+	        		if (size > maxSize) {
+	        			maxSize = size;
+		        		index = i;
+	        		}
+	        	}
+	        }
+	        Rect detectedEyePair = null;
+	        if (index != -1) {
+	        	detectedEyePair = eyesArray[index];
+	        }
+
+			// mouth
+			MatOfRect mouths = new MatOfRect();
+			eyesDetector.detectMultiScale(gray, mouths, 1.1, 5, 2, new Size(), gray.size());
+			Rect[] mouthArray = mouths.toArray();
+			maxSize = 0;
+	        index = -1;
+	        for (int i = 0; i < mouthArray.length; i++) {
+	        	if (index == -1) {
+	        		maxSize = mouthArray[i].width*mouthArray[i].height;
+	        		index = i;
+	        	}
+	        	else {
+	        		int size = mouthArray[i].width*mouthArray[i].height;
+	        		if (size > maxSize) {
+	        			maxSize = size;
+		        		index = i;
+	        		}
+	        	}
+	        } 
+	        Rect detectedMouth = null;
+	        if (index != -1) {
+	        	detectedMouth = mouthArray[index]; 
+	        }
+			
+	        if (detectedEyePair == null && detectedMouth == null) {
+	        	Log.e("ERROR", "very bad training example");
+	        }
+	        else {
+	        	if (detectedEyePair == null) {
+	        		Log.e("ERROR", "bad training example: no eyes");
+		        }
+		        else if (detectedMouth == null) {
+		        	Log.e("ERROR", "bad training example: no mouth");
+		        }
+		        else {
+					int crop_x = detectedEyePair.x;
+					int crop_y = detectedEyePair.y;
+					int width = detectedEyePair.width;
+					int height = detectedMouth.y + detectedMouth.height - detectedEyePair.y;
+					width = Math.min(bmp.getWidth()-crop_x, Math.max(width, height));
+					height = Math.min(bmp.getHeight()-crop_y, Math.max(width, height));
+					
+					bmp = Bitmap.createBitmap(bmp, crop_x, crop_y, width, height, null, false);
+		        }
+	        }
+	        Bitmap.createScaledBitmap(bmp, 250, 250, false);
 			
 			// save as image file
 			String fileStoragePath = Environment.getExternalStorageDirectory()+"/Android/data/com.facelabel";

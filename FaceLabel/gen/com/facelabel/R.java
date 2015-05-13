@@ -231,6 +231,8 @@ containing a value of this type.
     }
     public static final class raw {
         public static final int haarcascade_frontalface_alt=0x7f050000;
+        public static final int haarcascade_mcs_eyepair_big=0x7f050001;
+        public static final int haarcascade_mcs_mouth=0x7f050002;
     }
     public static final class string {
         public static final int action_settings=0x7f08000f;
