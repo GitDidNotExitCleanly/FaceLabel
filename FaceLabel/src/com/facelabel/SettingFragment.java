@@ -124,14 +124,19 @@ public class SettingFragment extends Fragment {
 		protected Void doInBackground(Void... arg0) {
 			DatabaseHelper.getInstance(getActivity());
 			
-			File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
-		            + "/Android/data/"
-		            + getActivity().getApplicationContext().getPackageName()
-		            + "/Groups");
+			File mediaStorageDir = new File(Environment.getExternalStorageDirectory()+"/Android/data/com.facelabel/Groups");
 			String[] children = mediaStorageDir.list();
 	        for (int i = 0; i < children.length; i++) {
 	            new File(mediaStorageDir, children[i]).delete();
 	        }
+	        
+			File xmlDir = new File(Environment.getExternalStorageDirectory()+"/Android/data/com.facelabel/Model");
+			if (xmlDir.exists()) {
+				String[] xmlChildren = xmlDir.list();
+				for (int i = 0; i < xmlChildren.length; i++) {
+		            new File(xmlDir, xmlChildren[i]).delete();
+		        }
+			}
 	        
 	        ContactsData.getContacts().clear();
 	        

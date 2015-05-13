@@ -38,6 +38,7 @@ import android.graphics.Point;
 import android.graphics.Bitmap.Config;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,7 +48,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class FaceRecognizerActivity extends Activity implements CvCameraViewListener2 {
@@ -68,8 +68,7 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 	
 	private Mat lastValidRect;
 	private Mat currentRect;
-	
-    private static final String    TAG                 = "FaceRecognizerActivity";
+
     private static final Scalar    FACE_RECT_COLOR     = new Scalar(0, 255, 0, 255);
     public static final int        JAVA_DETECTOR       = 0;
 
@@ -91,8 +90,6 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS:
                 {
-                    Log.i(TAG, "OpenCV loaded successfully");
-
                     try {
                         // load cascade file from application resources
                         InputStream is = getResources().openRawResource(R.raw.haarcascade_frontalface_alt);
@@ -110,16 +107,13 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 
                         mJavaDetector = new CascadeClassifier(mCascadeFile.getAbsolutePath());
                         if (mJavaDetector.empty()) {
-                            Log.e(TAG, "Failed to load cascade classifier");
                             mJavaDetector = null;
                         } else
-                            Log.i(TAG, "Loaded cascade classifier from " + mCascadeFile.getAbsolutePath());
 
                         cascadeDir.delete();
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                        Log.e(TAG, "Failed to load cascade. Exception thrown: " + e);
                     }
 
                     mOpenCvCameraView.enableView();
@@ -132,14 +126,9 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
         }
     };
 
-    public FaceRecognizerActivity() {
-        Log.i(TAG, "Instantiated new " + this.getClass());
-    }
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "called onCreate");
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         
@@ -206,7 +195,7 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 			    	new RecognizeFace().execute(bmp);
 				}
 				else {
-					Toast toast = Toast.makeText(FaceRecognizerActivity.this, "Please wiat until getting a stable image.", 200);
+					Toast toast = Toast.makeText(FaceRecognizerActivity.this, "Please wait until getting a stable image", 200);
 					toast.show();
 				}
 			}
@@ -225,6 +214,7 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
     @Override
 	public void onDestroy() {
         super.onDestroy();
+        new ClearCache().execute();
         mOpenCvCameraView.disableView();
     }
 
@@ -259,9 +249,6 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
             if (mJavaDetector != null) 	
                 mJavaDetector.detectMultiScale(mGray, faces, 1.1, 5, 2, new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
         }
-        else {
-            Log.e(TAG, "Detection method is not selected!");
-        }
 
         Rect[] facesArray = faces.toArray();
         int maxSize = 0;
@@ -294,11 +281,7 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 		@Override
 		protected Integer doInBackground(Bitmap... src) {
 
-			Recognizer faceRecognizer = Recognizer.getInstance();
-			faceRecognizer.train();
-			faceRecognizer.save();
-			
-			return faceRecognizer.predict(src[0]);
+			return Recognizer.getInstance().predict(src[0]);
 		}
 		
 		@Override
@@ -306,9 +289,11 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 			
 			Log.e("HELLO_WORLD", String.valueOf(memberID));
 			if (memberID != -1) {
+				boolean isFound = false;
 				for (int i=0;i<ContactsData.getContacts().size();i++) {
-					for (int j=0;i<ContactsData.getContacts().get(i).getGroupMembers().size();j++) {
+					for (int j=0;j<ContactsData.getContacts().get(i).getGroupMembers().size();j++) {
 						if (ContactsData.getContacts().get(i).getGroupMembers().get(j).getId() == memberID) {
+							isFound = true;
 							
 							Intent intent = new Intent(FaceRecognizerActivity.this, MemberActivity.class);
 							intent.putExtra("groupPosition", i);
@@ -318,6 +303,24 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 							
 						}
 					}
+				}
+				if (!isFound) {
+					new AlertDialog.Builder(FaceRecognizerActivity.this)
+					.setTitle("Exception")
+					.setMessage("No Match Found !")
+					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+				        @Override
+						public void onClick(DialogInterface dialog, int which) { 
+				        	
+				        	Intent intent = new Intent(FaceRecognizerActivity.this,MainPanelActivity.class);
+							intent.putExtra("fragment", 1);
+							startActivity(intent);
+							finish();
+							
+				        }
+				     })
+				    .setIcon(android.R.drawable.ic_dialog_alert)
+				    .show();
 				}
 			}
 			else {
@@ -342,5 +345,22 @@ public class FaceRecognizerActivity extends Activity implements CvCameraViewList
 			progressDialog.dismiss();
 	    }
 
+	}
+	
+	private class ClearCache extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+		    
+			String fileStoragePath = Environment.getExternalStorageDirectory()+"/Android/data/com.facelabel";
+			File tempFile = new File(fileStoragePath+"/temp.png");
+		    
+		    if (tempFile.exists()){
+		    	tempFile.delete();
+		    }
+		    
+			return null;
+		}
+		
 	}
 }

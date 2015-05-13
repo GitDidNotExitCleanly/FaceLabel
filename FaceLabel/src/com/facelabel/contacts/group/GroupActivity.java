@@ -19,6 +19,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -233,6 +234,14 @@ public class GroupActivity extends Activity {
 	            new File(dir, children[i]).delete();
 	        }
 	        dir.delete();
+	        
+			File xmlDir = new File(Environment.getExternalStorageDirectory()+"/Android/data/com.facelabel/Model");
+			if (xmlDir.exists()) {
+				for (int i=0;i<ContactsData.getContacts().get(groupPosition).getGroupMembers().size();i++) {
+					long member = ContactsData.getContacts().get(groupPosition).getGroupMembers().get(i).getId();
+					new File(xmlDir,member+".xml").delete();
+				}
+			}
 	        
 	        ContactsData.getContacts().remove(groupPosition);
 	        

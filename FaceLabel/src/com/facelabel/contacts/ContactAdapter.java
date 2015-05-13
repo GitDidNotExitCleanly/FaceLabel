@@ -58,7 +58,7 @@ public class ContactAdapter extends BaseAdapter {
 			
 		viewHolder.name.setText(info.getGroupName());
 		viewHolder.size.setText(String.valueOf(info.getGroupMembers().size()));
-		viewHolder.photo.setImageBitmap(BitmapLoader.decodeBitmapFromFile(info.getGroupPhoto(), 50, 25));
+		viewHolder.photo.setImageBitmap(BitmapLoader.decodeBitmapFromFile(info.getGroupPhoto(), 200, 100));
 
 		return convertView;
 	}

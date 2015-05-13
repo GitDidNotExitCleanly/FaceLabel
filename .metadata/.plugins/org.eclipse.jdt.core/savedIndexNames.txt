@@ -1,5 +1,4 @@
 INDEX VERSION 1.127+C:\Users\Barret\Desktop\G53IDS\.metadata\.plugins\org.eclipse.jdt.core
-2975952384.index
 1203882303.index
 4267916959.index
 2353209433.index

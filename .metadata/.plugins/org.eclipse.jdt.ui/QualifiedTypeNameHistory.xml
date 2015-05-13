@@ -6,4 +6,7 @@
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="com.facelabel.R.id"/>
+<fullyQualifiedTypeName name="com.facelabel.database.DatabaseHelper"/>
+<fullyQualifiedTypeName name="com.facelabel.database.ContactsData"/>
+<fullyQualifiedTypeName name="android.media.ThumbnailUtils"/>
 </qualifiedTypeNameHistroy>

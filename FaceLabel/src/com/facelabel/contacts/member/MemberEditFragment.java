@@ -11,6 +11,7 @@ import com.facelabel.database.DatabaseHelper;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -111,9 +112,16 @@ public class MemberEditFragment extends Fragment {
 		
 		@Override
 		protected Void doInBackground(Void... arg0) {
+			long id = ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).getId();
 			DatabaseHelper.getInstance(getActivity()).deleteMember(String.valueOf(ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).getId()));
 			new File(ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).getPhoto()).delete();
 			ContactsData.getContacts().get(groupPosition).getGroupMembers().remove(memberPosition);
+			
+			File xmlDir = new File(Environment.getExternalStorageDirectory()+"/Android/data/com.facelabel/Model");
+			if (xmlDir.exists()) {
+				new File(xmlDir,id+".xml").delete();
+			}
+			
 			return null;
 		}
 		

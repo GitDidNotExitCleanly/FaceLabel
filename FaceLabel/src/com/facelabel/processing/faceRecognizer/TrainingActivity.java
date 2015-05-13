@@ -20,42 +20,34 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.objdetect.CascadeClassifier;
 
-import com.facelabel.MainPanelActivity;
 import com.facelabel.MyExceptionHandler;
 import com.facelabel.R;
-import com.facelabel.R.id;
-import com.facelabel.R.layout;
-import com.facelabel.contacts.group.GroupActivity;
 import com.facelabel.contacts.member.MemberActivity;
 import com.facelabel.database.ContactsData;
+import com.facelabel.database.DatabaseHelper;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Bitmap.Config;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Environment;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class TrainingActivity extends Activity implements CvCameraViewListener2 {
 
+
+	
 	private ProgressDialog progressDialog;
 	
 	private ImageButton takePhoto;
@@ -190,7 +182,7 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
 						toast.show();
 					}
 					else {
-						Toast toast = Toast.makeText(TrainingActivity.this, "Please wiat until getting a stable image", 200);
+						Toast toast = Toast.makeText(TrainingActivity.this, "Please wait until getting a stable image", 200);
 						toast.show();
 					}
 				}
@@ -202,8 +194,17 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
 
 			@Override
 			public void onClick(View v) {
-				
-				
+				if (photoSize < 5) {
+					Toast toast = Toast.makeText(TrainingActivity.this, "Not enough training examples", 200);
+					toast.show();
+				}
+				else {
+					int groupPosition = getIntent().getExtras().getInt("groupPosition");
+					int memberPosition = getIntent().getExtras().getInt("memberPosition");
+					long memberID = ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).getId();
+					
+					new Train().execute(memberID);
+				}
 			}
 			
 		});
@@ -284,6 +285,7 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
     @Override
 	public void onDestroy() {
         super.onDestroy();
+		new ClearCache().execute();
         mOpenCvCameraView.disableView();
     }
     
@@ -298,6 +300,28 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
 		protected Bitmap doInBackground(Void... params) {
 			Bitmap bmp = Bitmap.createBitmap(lastValidRect.cols(),lastValidRect.rows(),Config.RGB_565);
 			Utils.matToBitmap(lastValidRect, bmp);
+			
+			// save as image file
+			String fileStoragePath = Environment.getExternalStorageDirectory()+"/Android/data/com.facelabel";
+		    File tempFileStorageDir = new File(fileStoragePath + "/Temp");
+		    
+		    // Create the storage directory if it does not exist
+		    if (! tempFileStorageDir.exists()){
+		        if (! tempFileStorageDir.mkdirs()){
+		            return null;
+		        }
+		    }
+			
+			FileOutputStream os;
+			try {
+				os = new FileOutputStream(tempFileStorageDir.getAbsolutePath()+"/"+photoSize+".png",true);
+				bmp.compress(Bitmap.CompressFormat.PNG, 100, os);
+				os.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+
 			return Bitmap.createScaledBitmap(bmp, 90, 90, false);
 		}
 		
@@ -312,5 +336,64 @@ public class TrainingActivity extends Activity implements CvCameraViewListener2 
 			progressDialog.dismiss();
 	    }
 
+	}
+	
+	private class ClearCache extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+		    
+			String fileStoragePath = Environment.getExternalStorageDirectory()+"/Android/data/com.facelabel";
+			File tempFileStorageDir = new File(fileStoragePath + "/Temp");
+		    
+		    if (tempFileStorageDir.exists()){
+		    	if (tempFileStorageDir.isDirectory()) {
+		            String[] children = tempFileStorageDir.list();
+		            for (int i = 0; i < children.length; i++) {
+		                new File(tempFileStorageDir, children[i]).delete();
+		            }
+		        }
+		    }
+		    
+			return null;
+		}
+		
+	}
+	
+	private class Train extends AsyncTask<Long, Void, Void> {
+
+		@Override
+		protected void onPreExecute() {
+			progressDialog = ProgressDialog.show(TrainingActivity.this, "", "Training ...", true, false);
+		}
+		
+		@Override
+		protected Void doInBackground(Long... params) {
+		    
+			int label =  Integer.parseInt(String.valueOf(params[0]));
+			
+			Recognizer.getInstance().train_examples(label);
+			Recognizer.getInstance().save(params[0]);
+		    
+			// change state
+			int groupPosition = getIntent().getExtras().getInt("groupPosition");
+			int memberPosition = getIntent().getExtras().getInt("memberPosition");
+			ContactsData.getContacts().get(groupPosition).getGroupMembers().get(memberPosition).finishTraining();
+			DatabaseHelper.getInstance(TrainingActivity.this).finishTraining(params[0]);
+			
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void param) {
+			
+			Intent intent = new Intent(TrainingActivity.this,MemberActivity.class);
+			intent.putExtra("groupPosition", getIntent().getExtras().getInt("groupPosition"));
+			intent.putExtra("memberPosition", getIntent().getExtras().getInt("memberPosition"));
+			startActivity(intent);
+			finish();
+			
+			progressDialog.dismiss();
+		}
 	}
 }

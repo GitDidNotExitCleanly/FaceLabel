@@ -169,6 +169,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 	}
 	
+	public void finishTraining(long memberId) {
+		new FinishTraining().execute(String.valueOf(memberId));
+	}
+	
+	private class FinishTraining extends AsyncTask<String,Void,Void> {
+
+		@Override
+		protected Void doInBackground(String... params) {
+			ContentValues cv = new ContentValues();
+			cv.put(MEMBER_TRAINED, "true");
+			getWritableDatabase().update(TABLE_MEMBERS, cv, "id=?", new String[]{ params[0] });
+			return null;
+		}
+		
+	}
+	
 	public void deleteMember(String memberId) {
 		new DeleteMember().execute(memberId);
 	}

@@ -2,6 +2,7 @@ package com.facelabel;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 
 public abstract class BitmapLoader {
 
@@ -17,7 +18,8 @@ public abstract class BitmapLoader {
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(filePath, options);
+        Bitmap bmp = BitmapFactory.decodeFile(filePath, options);
+        return ThumbnailUtils.extractThumbnail(bmp, reqWidth, reqHeight, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
     }
 
     private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {

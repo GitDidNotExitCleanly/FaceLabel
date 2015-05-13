@@ -53,4 +53,8 @@ public class MemberInfo {
 		this.phone = newInfo[1];
 		this.email = newInfo[2];
 	}
+	
+	public void finishTraining() {
+		this.trainingState = "true";
+	}
 }
