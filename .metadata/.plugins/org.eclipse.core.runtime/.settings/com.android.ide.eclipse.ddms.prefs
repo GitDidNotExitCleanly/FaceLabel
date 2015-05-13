@@ -35,6 +35,7 @@ heapPanel.col3=78
 heapPanel.col4=78
 heapPanel.col5=78
 heapPanel.col6=78
+lastImageSaveDir=C\:\\Users\\Barret\\Desktop
 logcat.view.colsize.Application=143
 logcat.view.colsize.Level=29
 logcat.view.colsize.PID=50
