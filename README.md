@@ -13,4 +13,4 @@ search: by taking a photo of a person, FaceLabel can find the related informatio
 
 brief introduction
 
-![](https://github.com/GitDidNotExitCleanly/FaceLabel/tree/master/Screenshot/QQ截图20150514172557.png)
+![Alt text](Screenshot/QQ截图20150514172557.png?raw=true "")
